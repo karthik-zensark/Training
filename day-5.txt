@@ -1,0 +1,51 @@
+-> Node.js Start.
+
+-> write some code during the session and as well as after.
+-> Node
+  -> Built on V8 engine.
+  -> REPL
+     -> R - Read
+     -> E - Eval
+     -> P - Print
+     -> L - Loop
+  
+  -> enter "node" in terminal and enter to enter into REPL
+  -> Different with browser JS ecosystem. 
+     -> For ex:- Browser dependent methods like Document.getElementById is unavailable.
+  -> All core JS methods are avaialable along with Node API extras.
+    -> ex: console.log, Arrays, Loops etc.
+    
+    -> Some easily available methods.
+       -> To clear the console.log in REPL -> enter "console.clear()" 
+       -> .help -> to get the help screen.
+       -> .editor -> to open an cmd line editor to write more than one line of code.
+       	  -> Ctrl+D -> TO run the written code and exit the cmd line editor.
+       -> _ -> to display last result -> only works on REPL shell.
+       -> Tab(press tab 2 times) -> To display the list of methods available.
+       
+   -> fs Module:
+   	-> fs.readdirSync(os.homedir()) -> To read a directory at the given path.
+   	-> fs.readfileSync -> to read a file.
+   	
+   -> How to write scripts in node.js and execute them.
+   	-> on REPL all packages and modules are readily available because everything is loaded at start itself but while writing a script we need to import he required packages.
+   	 -> ex: const os = require("os");
+   	 
+   -> Can Node do launch any applications(process), open URL's etc.. ?
+   	-> Yes. There's a package called process in node which can be used to do the above mentioned operations.
+   	
+   -> Setting the mode of environment in nodeJS:
+   	-> NODE_ENV = development or any type of env.
+   
+   -> The Modern Javascript:
+   	-> Use of String literals
+   	-> Use of const instead of var.
+   	
+   	-> ECMA
+   	   -> var, let, const, 
+   	   -> Earlier there was no concept of using classes in JS but fro ECMA Script we can use classes.
+   	   
+   	   -> THIS keyword:
+   	   	-> "this" keyword has it's own scope.
+   	   	-> when used inside a function the scope of this changes.
+   	   	-> to solve this use "Arrow Functions".  

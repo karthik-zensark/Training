@@ -1,0 +1,40 @@
+June 20
+
+-> Node JS
+	-> Structuring the objects using existing default array methods.
+	
+	-> General array methods =>
+	
+  	   -> filter
+  	   -> forEach
+  	   -> fill
+  	   -> map
+  	   -> reduce
+  	   
+ 	-> node js - packages and modules.
+ 	   -> modules -> created functions which can be exported and used in another files.
+ 	   -> npm -> node package manager
+ 	      ->  npm init - command by npm used to initialize a project
+ 	        -> initialize the project.
+ 	        ->  Answer the questions asked by npm. to create a package.json file. 
+ 	        -> Packages -> 
+ 	         	-> .18 -> is a minor version -> minor feature change which doesnt impact or affect the behavior ex: for loop is used instead of for each.
+ 	         	-> not mandatory to follow.
+ 	         	-> ^ -> minor versions are acceptable. ex:  acceptable upto 5.0 not including 5.0 from 4.18.1
+ 	         	-> ~ -> minor - minor versions are acceptable. ex: acceptable upto 4.19 from 4.18.1 to 1.18.9/4.19
+ 	         	-> No caret symbols - same package will be used.
+ 	        -> package.lock.json
+ 	        	-> When "npm install" is done npm uses this "package-lock.json" to install the packages and dependencies to maintain the compatibility.
+ 	        -> ** make sure to commit package-lock.json. 
+ 	        
+ 	        -> Express-js
+ 	        	-> Used to spin up a web-server which responds to various web-requests.
+ 	        	-> Wrappers around the core packages are available without the need of writing and understand the core concepts.
+ 	        	-> 
+ 	        
+ 	        -> How to use Express.js to run/start a server. : 
+ 	           -> import "express" module using require.
+ 	           -> start a server i.e listen on a certain port number using app.listen(1234) -> where 1234 is a port number.
+ 	           -> app.get("/", (req, res)=>{
+ 	           	res.send("running");
+ 	           }) -> where -> req is request and res is resonse. -> .get is the getrequest -> "/" is the "route" -> req.send("running") => "running" is the output to be sent using req.send

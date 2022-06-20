@@ -1,0 +1,14 @@
+-> fetch by default returns a promise. when "await" is used by default data is returned. instead of a promise.
+
+using of await resolves an promise by default.
+
+Network tab- browser
+ -> Fetch/XHR -> Fetch calls / XmlHttpRequest.
+ 
+getting the data using calll backs.
+ -> Using get - XMLHttpRequest
+ 
+ Drag and drop in js
+ -> First enable draggable = true. -> on the HTML event.
+ -> 
+ 
