@@ -1,0 +1,83 @@
+.spinner {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.products {
+  /* margin-left: 450px; */
+  padding: 10px;
+}
+
+.tileHolder {
+  padding: 10px;
+  border: 3px groove black;
+  border-radius: 20px;
+  margin-top: 10px;
+  /* border: 1px solid black; */
+  width: 600px;
+  display: flex;
+}
+
+.imgHolder {
+  vertical-align: middle;
+  padding: 30px;
+}
+
+.infoHolder {
+  padding: 2px 20px 20px 20px;
+}
+
+.imageStyler {
+  /* margin: 10px; */
+  height: 100px;
+  width: 100px;
+}
+
+.bucketHolder {
+  margin: 0px 90px 50px 0px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.bucketCount {
+  display: flex;
+}
+
+.count {
+  font-size: 33px;
+}
+
+.bucketList {
+  /* display: none; */
+  padding: 24px;
+  border: 2px solid black;
+  border-radius: 37px;
+}
+
+.bucketItem {
+  margin-top: 15px;
+}

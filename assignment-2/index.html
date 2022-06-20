@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Calculator GUI</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="calc.css" />
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+
+    <script src="assignment-2.js" async defer></script>
+
+    <div>
+      <div class="calculator">
+        <div>
+          <h1 class="calc_heading">Assignment-2</h1>
+          <h2 class="calc_heading">Calculator</h2>
+        </div>
+        <input class="inputBox" id="input_box" type="text" value="" />
+        <div class="calc_buttons">
+          <div class="calc_first_row_del">
+            <button class="calc_button_del" onclick="calcDel(event)">
+              del
+            </button>
+            <button class="calc_button_del" onClick="calcChange(event)">
+              %
+            </button>
+          </div>
+          <div onclick="calcChange(event)">
+            <div class="calc_rows">
+              <button class="calc_button">1</button>
+              <button class="calc_button">2</button>
+              <button class="calc_button">3</button>
+              <button class="calc_button">+</button>
+            </div>
+            <div class="calc_rows">
+              <button class="calc_button">4</button>
+              <button class="calc_button">5</button>
+              <button class="calc_button">6</button>
+              <button class="calc_button">-</button>
+            </div>
+            <div class="calc_rows">
+              <button class="calc_button">7</button>
+              <button class="calc_button">8</button>
+              <button class="calc_button">9</button>
+              <button class="calc_button">/</button>
+            </div>
+          </div>
+          <div class="calc_rows">
+            <button class="calc_button" onclick="calcChange(event)">0</button>
+            <button
+              class="calc_button"
+              style="padding: 25px 12px 25px 12px"
+              onclick="calcChange(event)"
+            >
+              00
+            </button>
+            <button class="calc_button" onclick="calcChange(event)">*</button>
+            <button class="calc_button" onclick="mulCalc(event)">=</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
