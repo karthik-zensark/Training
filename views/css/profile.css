@@ -1,0 +1,18 @@
+.user_holder {
+  display: flex;
+  border: 1px groove black;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 450px;
+}
+
+.user_pic_holder {
+    margin-left: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.user_des_holder {
+    margin-top: 13px;
+    margin-left: 50px;
+}

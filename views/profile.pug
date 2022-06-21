@@ -1,0 +1,25 @@
+html 
+    head 
+        title= title
+        //- script(Src="/js/main.js")
+        link(rel="stylesheet", href="css/profile.css") 
+    body 
+        include header2.pug 
+        div 
+            h1 List of Users
+            ul 
+            //- - for (var x= 0; x <= users.length; x++)
+            //-     li= x
+            div 
+                each user in users
+                    div(class="user_holder")
+                        div 
+                            img(src=user.pic, class="user_pic_holder", height="100px", width="100px")
+                        div(class="user_des_holder") 
+                            li= "First name: " + user.fname
+                            li= "Last name: " + user.lname 
+                            li= "Email: " + user.email
+                            li Address :
+                                each address in user.addresses
+                                    li(style= "margin-left: 20px")= address
+                            br

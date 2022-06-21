@@ -1,0 +1,37 @@
+html
+    head
+        title= title
+        script(Src="/js/main.js")
+        link(rel="stylesheet", href="css/main.css")
+    body
+        include header.pug
+        div 
+            h1= message
+            a(href=actionUrl target="_blank") Click me
+            case day
+                when 1: p Monday
+                when 2: p Tuesday
+                default: p Sunday
+            ul
+            - for (var x= from; x <= to; x++)
+                li= x 
+            ul 
+                each name in names 
+                    li= name
+            if user 
+                h1 #{user.name} is #{user.age} years old.
+            else 
+                h1 user not defined.
+
+            button(onclick="clickme()") click Me
+            #output Output will come here.
+
+              script.
+                function clickme() {
+                    alert('sss')
+                }
+
+            //- - function onclick() {
+            //-     document.querySelector('#output').innerText = 'Button Clicked';
+            //-     };
+        include footer.pug 
