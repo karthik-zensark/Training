@@ -1,3 +1,14 @@
+.header2 {
+  border-radius: 15px;
+  padding: 1px 0px 1px 10px;
+  font-size: 20px;
+  position: sticky;
+  top: 0;
+  width: 99%;
+  background: grey;
+  color: white;
+}
+
 .user_holder {
   display: flex;
   border: 1px groove black;
@@ -7,12 +18,16 @@
 }
 
 .user_pic_holder {
-    margin-left: 20px;
-    margin-top: 20px;
-    border-radius: 10px;
+  margin-left: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
 }
 
 .user_des_holder {
-    margin-top: 13px;
-    margin-left: 50px;
+  margin-top: 13px;
+  margin-left: 50px;
+}
+
+.footer2 {
+  padding: 10px;
 }
