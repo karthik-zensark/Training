@@ -58,8 +58,27 @@ async function find(collectionName, query) {
   }
 }
 
+async function findOne(collectionName, query) {
+  try {
+    // Connect to mongo db server
+    await client.connect();
+    // Get the database reference
+    const db = client.db("ecom");
+    // Get the collection reference
+    const collection = db.collection(collectionName);
+    // Find documents using query and convert to array
+    return await collection.findOne(query);
+  } catch (err) {
+    console.error(`Error while querying data. ${err}`);
+  } finally {
+    // Close the connection
+    await client.close();
+  }
+}
+
 module.exports = {
   insert,
   insertMany,
   find,
+  findOne,
 };

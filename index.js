@@ -3,7 +3,7 @@ const app = require("express")();
 // JSON to parse the application/json body types
 const { json, static } = require("express");
 
-const { find, insert, insertMany } = require("./db");
+const { find, findOne, insert, insertMany } = require("./db");
 
 // Set default view engine to PUG
 app.set("view engine", "pug");
@@ -33,7 +33,9 @@ app.get("/status", function (req, res) {
 app.get("/", async (__, res) => {
   try {
     const products = await find("products", {});
-    res.status(200).render("home", { products });
+    const users = await find("users", {});
+    const user = await findOne("users", {});
+    res.status(200).render("home", { products, user });
   } catch (err) {
     res.status(200).render("home", { error: err });
   }
@@ -54,8 +56,8 @@ app.post("/product", async (req, res) => {
 
 app.get("/profile", async (__, res) => {
   try {
-    const users = await find("users", {});
-    res.status(200).render("profile", { users });
+    const user = await findOne("users", {});
+    res.status(200).render("profile", { user });
   } catch (err) {
     res.status(200).render("profile", { error: err });
   }

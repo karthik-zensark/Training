@@ -4,8 +4,7 @@ header(class="sticky top-0 w-screen shadow-xl")
             img(src="/images/logo.svg" alt="logo" class="w-20 h-20")
         form(class="w-4/12 mb-0 flex items-center justify-between")
             input(type="text", name="search" placeholder="Find something" class="rounded-full shadow-xl p-3 border-0 w-full h-12 mr-3")
-            div(class="flex p-5")
+            div(class="flex p-5", onclick="goToProfile('profile')")
                 div(class="mr-3 flex")
-                    img(class="rounded-full" src="http://localhost:1234/images/kakashi.jpg" alt="Kakashi" height="50px" width="30px")
-                    each user in users 
-                        h5(class="pl-3")= user.fname 
+                    img(class="rounded-full" src= user.pic alt="Kakashi" height="50px" width="30px")
+                    h5(class="pl-3")= user.fname 
