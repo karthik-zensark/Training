@@ -1,0 +1,25 @@
+html
+    head
+        title Zensark Ecom
+        include head.pug
+        link(rel="stylesheet", href="profile.css", attr)
+    body
+        include header.pug
+        div(class="p-5 flex items-center justify-center")
+            if error
+                p(class="text-2xl text-red-500")= error
+            else 
+                if profile 
+                    div(class="w-4/12 p-5 shadow-lg rounded-log shadow-gray")
+                        form(class="flex flex-col gap-5" id="profile-form" method="POST" action="/profile")
+                            input(type="hidden" name="_id" value= profile._id)
+                            input(type="text" id="name" name="name" placeholder="Enter full name" value= profile.name disabled class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                            input(type="url" id="ppic" name="avatar" placeholder="Enter avatar url" value= profile.avatar disabled class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                            h3 Address
+                            each address in profile.addresses
+                                input(type="text" id="address" name="add1" placeholder="Enter your address" value= address disabled class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                            button(class="rounded-full bg-blue-500 text-white px-5 py-2 hover:bg-blue-800") Save
+                        div(id="edit-section" class="flex justify-center")
+                            button(id="edit-btn" class="rounded-full bg-blue-500 text-white px-5 py-2 hover:bg-blue-800" onclick="toggleEdit()") Edit
+                            button(id="cancel-btn" class="rounded-full bg-blue-500 text-white px-5 py-2 hover:bg-blue-800 hidden" onclick="closeEdit()") cancel
+        include footer.pug

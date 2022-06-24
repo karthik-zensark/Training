@@ -1,0 +1,16 @@
+header(class="sticky top-0 w-screen shadow-xl")
+    nav(class="px-5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-between")
+        a(href="/")
+            img(src="/images/logo.svg" alt="logo" class="w-20 h-20")
+        form(class="w-3/12 mb-0")
+            input(type="text", name="search" placeholder="Find something" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+        if profile
+            div(class="flex gap-2 items-center justify-center")
+                span(class="text-white text-lg")= profile.name
+                img(src="/images/chevron.svg" class="w-4 h-4 cursor-pointer" id="profile-arrow")
+                div(class="absolute bg-white shadow-lg rounded-b-lg top-16 right-16 text-gray hidden" id="profile-menu")
+                    ul(class="list-style-none divide-y-2")
+                        li(class="px-3 py-2 cursor-pointer")
+                            a(href="/profile") Profile
+                        li(class="px-3 py-2 cursor-pointer") Logout
+                img(src= profile.avatar, alt= profile.name class="w-12 h-12 rounded-full")
