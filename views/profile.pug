@@ -1,0 +1,49 @@
+html
+    head
+        title Zensark Ecom
+        include head.pug
+    body
+        include header.pug
+        div(class="p-5 flex items-center justify-center")
+            if error
+                p(class="text-2xl text-red-500")= error
+            else 
+                if profile
+                    div(class="flex w-full gap-10 justify-evenly items-center")
+                        div(class="w-4/12 p-5 shadow-lg rounded-lg shadow-gray")
+                            form(class="flex flex-col gap-5" method="POST" action="/profile")
+                                input(type="hidden" name="_id" value= profile._id)
+                                input(type="text" name="name" placeholder="Enter full name" value= profile.name class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                input(type="url" name="avatar" placeholder="Enter avatar url" value= profile.avatar class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                button(class="rounded-full bg-blue-500 text-white px-5 py-2 hover:bg-blue-800") Save
+                        div(class="flex-1 p-5 shadow-lg rounded-lg shadow-gray flex flex-col gap-5")
+                            h1 Addresses
+                            div(class="flex flex-wrap gap-5")
+                                each address in profile.addresses
+                                    div(class="shadow-md w-32 rounded-md p-2")
+                                        p #{address.line1}, 
+                                        p #{address.city}
+                                        p #{address.postcode}, 
+                                        p #{address.country}
+                                        button#editAddress(class="text-blue-500 hover:text-blue-800" onclick="showEditAddressForm('" + JSON.stringify(address) + "')") Edit
+                            button#addAddress(class="rounded-full bg-blue-500 text-white px-5 py-2 hover:bg-blue-800") Add
+                            
+                        div#newAddressForm(class="w-4/12 p-5 shadow-lg rounded-lg shadow-gray hidden")
+                            form(class="flex flex-col gap-5" method="POST" action="/newaddress")
+                                input(type="hidden" name="_id" value= profile._id)
+                                input(type="text" name="line1" placeholder="Enter address line 1" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                input(type="text" name="city" placeholder="Enter city" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                input(type="text" name="postcode" placeholder="Enter postcode" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                input(type="text" name="country" placeholder="Enter country" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                button(class="rounded-full bg-blue-500 text-white px-5 py-2 hover:bg-blue-800") Save
+                        
+                        div#editAddressForm(class="w-4/12 p-5 shadow-lg rounded-lg shadow-gray hidden")
+                            form(class="flex flex-col gap-5" method="POST" action="/address")
+                                input(type="hidden" name="_id" value= profile._id)
+                                input(type="hidden" name="addressId")
+                                input(type="text" name="line1" placeholder="Enter address line 1" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                input(type="text" name="city" placeholder="Enter city" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                input(type="text" name="postcode" placeholder="Enter postcode" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                input(type="text" name="country" placeholder="Enter country" class="rounded-full shadow-xl p-3 border-0 w-full h-12")
+                                button(class="rounded-full bg-blue-500 text-white px-5 py-2 hover:bg-blue-800") Save
+        include footer.pug
