@@ -6,9 +6,9 @@ html
         include header.pug
         div(class="p-5")
             each product in cart.productsArray
-                form(action="/cart-del-one" method="POST")
+                form(id="cartForm" action="/cart-del-one" method="POST")
                     input(type="hidden" name="_prodid" value= product._id)
-                    div(class="max-w-15 rounded overflow-hidden shadow-lg flex grid grid-cols-7 gap-1")
+                    div(class="max-w-15 rounded overflow-hidden shadow-lg flex grid grid-cols-8 gap-1")
                         div(class="m-auto col-span-1")
                             img(class="p-8" src= product.image width="150px" alt="Sunset in the mountains")
                         div(class="px-10 py-6 col-span-3")
@@ -19,11 +19,22 @@ html
                             span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= "#" + product.category
                             span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= product.rating.rate
                             span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= product.rating.count
-                        div(class="m-auto col-span-1")
+                        //- div(class="m-auto flex text-xl")    
+                            h5(type="button" onclick=`addQuantity(${product.cartQuantity})`)= "+"
+                            input(class="m-auto p-2" id="quantity" value= product.cartQuantity)
+                            h5(type="button" onclick="decQuantity(event)")= '-'
+                        div(class="m-auto col-span-1 flex")
                             button(class="inline-block bg-red-400 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2" type="submit")= "Delete"
+                form(id="cardDec" action="/cart-product-decrease" method="POST")
+                    input(type="hidden" name="_prodid" value= product._id)
+                    button(class="text-xl") -
+                div()= product.cartQuant
+                form(id="cardDec" action="/cart-product-increase" method="POST")
+                    input(type="hidden" name="_prodid" value= product._id)
+                    button(class="text-xl") +
             div(class="flex justify-end")    
                 div(class="p-3 font-bold text-xl")= "Total number of items in Cart: "
                 div(class="pt-3 pr-10 font-bold text-xl underline underline-offset-8")= cartItems
                 div(class="p-3 font-bold text-xl")= "Total cart value: "
                 div(class="pt-3 pr-10 font-bold text-xl underline underline-offset-8")= "$" + finalPrice
-        footer.pug
+        include footer.pug

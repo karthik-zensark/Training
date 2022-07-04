@@ -105,8 +105,8 @@ async function updateToDeleteOne(collectionName, id, pid) {
     return await collection.updateOne(
       { _id: new ObjectId(id) },
       { $pull: { productsArray: { _id: new ObjectId(pid) } } },
-      false,
-      true
+      // false,
+      // true
     );
   } catch (err) {
     console.log(`Error while deleting the data. ${err}`);

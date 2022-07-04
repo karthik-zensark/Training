@@ -30,6 +30,19 @@ function showEditAddressForm(address) {
   editForm.classList.remove("hidden");
 }
 
+function addQuantity(value) {
+  console.log("addQuantity");
+  const cartForm = document.querySelector('#cartForm');
+  modifiedValue = cartForm.querySelector("#quantity").value = value + 1;
+  console.log(modifiedValue);
+}
+
+function decQuantity() {
+  console.log("decQuantity");
+  const cartForm = document.querySelector('#cartForm');
+  cartForm.querySelector("#quantity").value - 1;
+}
+
 function addToCart() {
   // console.log("lol");
   const button = document.getElementById("cart-button");

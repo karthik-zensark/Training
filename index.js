@@ -3,7 +3,6 @@ const app = require("express")();
 // JSON to parse the application/json body types
 const { json, urlencoded, static } = require("express");
 const { ObjectId } = require("mongodb");
-const nodemon = require("nodemon");
 
 const {
   find,
@@ -45,7 +44,14 @@ app.get("/", async (__, res) => {
   try {
     const products = await find("products", {});
     const profile = await findOne("profile", {});
-    res.status(200).render("home", { profile, products });
+    const cart = await findOne("cart", {});
+    if (cart) {
+      cartItems = cart.productsArray.length;
+    } else {
+      cartItems = 0;
+    }
+    // cartItems = cart.productsArray.length;
+    res.status(200).render("home", { profile, products, cartItems });
   } catch (err) {
     res.status(200).render("home", { error: err });
   }
@@ -67,10 +73,20 @@ app.get("/cart", async (__, res) => {
     pricesArray = [];
     finalPrice = 0.0;
     initialPrice = 0.0;
-    cartItems = cart.productsArray.length;
-    console.log(cartItems)
+    cartItems = 0;
+    if (cart) {
+      cart.productsArray.map((product) => {
+        itemsInCart = cartItems + product.cartQuant;
+        cartItems = itemsInCart;
+        console.log(cartItems);
+      });
+    } else {
+      cartItems = 0;
+    }
+    console.log(cartItems);
     cart.productsArray.map((product) => {
-      initialPrice = initialPrice + product.price;
+      productPrice = product.price * product.cartQuant;
+      initialPrice = initialPrice + productPrice;
       console.log("initial price is : ", initialPrice);
       finalPrice = Math.round((initialPrice + Number.EPSILON) * 100) / 100;
     });
@@ -120,23 +136,40 @@ app.post("/cart-post", async (req, res) => {
     productsArray = [];
     // const cart = await findOne("cart", {})
     if (cart) {
+      bla = _id;
+      console.log(bla);
+      console.log(product._id);
       // cart.productsArray.map(async (productExist) => {
       // console.log("product id is : ", productExist._id);
       // if (_id == productExist._id) {
-      product._id = new ObjectId();
-      cart.productsArray.push(product);
+      // product._id = new ObjectId();
+      // if (bla == product._id) {
+        // 
+        // TODO: This functionality is broken currently will be fixed soon. 
+        // 
+      cart.productsArray.map(async (cartProd) => {
+        if (_id == cartProd._id) {
+          cartProd.cartQuant += 1;
+        } else {
+          product.cartQuant = 1;
+          cart.productsArray.push(product);
+          // const data = await updateOne("cart", cart._id, cart);
+        }
+      });
       const data = await updateOne("cart", cart._id, cart);
+      // product.cartQuant += 1;
       // }
       // product.cartCount++;
       // const data = insert("cart", productsArray);
       // });
     } else {
+      product.cartQuant = 1;
       productsArray.push(product);
       console.log(productsArray);
       const data = insert("cart", { _profid, productsArray });
     }
     // }
-    if (data && data.insertedId) {
+    if (data && data.modifiedCount) {
       res.status(200).send({ data });
     } else {
       res.status(500).send({ data });
@@ -164,7 +197,7 @@ app.post("/cart-del-one", async (req, res) => {
       // const data = insert("cart", { _profid, productsArray });
     }
     // }
-    if (data && data.insertedId) {
+    if (data && data.modifiedCount) {
       res.status(200).send({ data });
     } else {
       res.status(500).send({ data });
@@ -172,6 +205,112 @@ app.post("/cart-del-one", async (req, res) => {
   } catch (err) {
     res.status(500).send({ err: JSON.stringify(err) });
     // res.redirect("/cart");
+  }
+});
+
+app.post("/cart-product-decrease", async (req, res) => {
+  const { _prodid } = req.body;
+  try {
+    // console.log(_id);
+    console.log(_prodid);
+    const product = await findOne("products", { _id: ObjectId(_prodid) });
+    const cart = await findOne("cart", {});
+    console.log(cart);
+    // console.log(product);
+    productsArray = [];
+    // const cart = await findOne("cart", {})
+    if (cart) {
+      // bla = _id;
+      // console.log(bla);
+      console.log(product._id);
+      // cart.productsArray.map(async (productExist) => {
+      // console.log("product id is : ", productExist._id);
+      // if (_id == productExist._id) {
+      // product._id = new ObjectId();
+      // if (bla == product._id) {
+      cart.productsArray.map(async (cartProd) => {
+        if (_prodid == cartProd._id) {
+          if (cartProd.cartQuant == 1) {
+            const data = await updateToDeleteOne("cart", cart._id, _prodid);
+          } else {
+            cartProd.cartQuant -= 1;
+            const data = await updateOne("cart", cart._id, cart);
+          }
+        }
+      });
+      // product.cartQuant += 1;
+      // }
+      // product.cartCount++;
+      // const data = insert("cart", productsArray);
+      // });
+    } else {
+      // product.cartQuant = 1;
+      // productsArray.push(product);
+      console.log("cart not found");
+      // const data = insert("cart", { _profid, productsArray });
+    }
+    // }
+    if (data && data.modifiedCount) {
+      res.status(200).send({ data });
+    } else {
+      res.status(500).send({ data });
+    }
+  } catch (err) {
+    res.status(500).send({ err });
+    // res.redirect("/");
+  }
+});
+
+app.post("/cart-product-increase", async (req, res) => {
+  const { _prodid } = req.body;
+  try {
+    // console.log(_id);
+    console.log(_prodid);
+    const product = await findOne("products", { _id: ObjectId(_prodid) });
+    const cart = await findOne("cart", {});
+    console.log(cart);
+    // console.log(product);
+    productsArray = [];
+    // const cart = await findOne("cart", {})
+    if (cart) {
+      // bla = _id;
+      // console.log(bla);
+      console.log(product._id);
+      // cart.productsArray.map(async (productExist) => {
+      // console.log("product id is : ", productExist._id);
+      // if (_id == productExist._id) {
+      // product._id = new ObjectId();
+      // if (bla == product._id) {
+      cart.productsArray.map(async (cartProd) => {
+        if (_prodid == cartProd._id) {
+          // if (cartProd.cartQuant == 1) {
+          //   const data = await updateToDeleteOne("cart", cart._id, _prodid);
+          // } else {
+          cartProd.cartQuant += 1;
+          const data = await updateOne("cart", cart._id, cart);
+        }
+        // }
+      });
+      // product.cartQuant += 1;
+      // }
+      // product.cartCount++;
+      // const data = insert("cart", productsArray);
+      // });
+    } else {
+      // product.cartQuant = 1;
+      // productsArray.push(product);
+      console.log("cart not found");
+      // const data = insert("cart", { _profid, productsArray });
+    }
+    // }
+    if (data && data.modifiedCount) {
+      res.status(200).send({ data });
+    } else {
+      res.status(500).send({ data });
+    }
+  } catch (err) {
+    res.status(500).send({ err });
+    // res.redirect("/");
   }
 });
 
