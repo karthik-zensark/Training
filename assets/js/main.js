@@ -62,3 +62,11 @@ function addToCart() {
     }
   });
 }
+
+document.getElementById("submit-dec").onclick = function() { 
+  document.getElementById("cartDec").submit(); 
+} 
+
+document.getElementById("submit-inc").onclick = function() { 
+  document.getElementById("cartInc").submit(); 
+} 

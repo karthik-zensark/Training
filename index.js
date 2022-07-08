@@ -45,8 +45,13 @@ app.get("/", async (__, res) => {
     const products = await find("products", {});
     const profile = await findOne("profile", {});
     const cart = await findOne("cart", {});
+    cartItems = 0;
     if (cart) {
-      cartItems = cart.productsArray.length;
+      cart.productsArray.map((product) => {
+        itemsInCart = cartItems + product.cartQuant;
+        cartItems = itemsInCart;
+        console.log(cartItems);
+      });
     } else {
       cartItems = 0;
     }
@@ -127,35 +132,51 @@ app.post("/product", async (req, res) => {
 app.post("/cart-post", async (req, res) => {
   const { _id, _profid } = req.body;
   try {
-    console.log(_id);
-    console.log(_profid);
+    // console.log(_id);
+    // console.log(_profid);
     const product = await findOne("products", { _id: ObjectId(_id) });
     const cart = await findOne("cart", {});
-    console.log(cart);
+    // console.log(cart);
     // console.log(product);
     productsArray = [];
     // const cart = await findOne("cart", {})
     if (cart) {
       bla = _id;
-      console.log(bla);
-      console.log(product._id);
+      // console.log(bla);
+      // console.log(product._id);
+      final_id = "";
       // cart.productsArray.map(async (productExist) => {
       // console.log("product id is : ", productExist._id);
       // if (_id == productExist._id) {
       // product._id = new ObjectId();
       // if (bla == product._id) {
-        // 
-        // TODO: This functionality is broken currently will be fixed soon. 
-        // 
-      cart.productsArray.map(async (cartProd) => {
-        if (_id == cartProd._id) {
-          cartProd.cartQuant += 1;
+      //
+      // TODO: This functionality is broken currently will be fixed soon.
+      //
+      // console.log("cart products array is: ", cart.productsArray);
+      cart.productsArray.find((cartProd) => {
+        if (cartProd._id == _id) {
+          console.log("id found");
+          final_id = cartProd._id;
         } else {
-          product.cartQuant = 1;
-          cart.productsArray.push(product);
-          // const data = await updateOne("cart", cart._id, cart);
+          console.log("id not found");
         }
+        // console.log("cartProd are :", cartProd);
+        // console.log("id and cartProd id are: ", _id, cartProd._id);
       });
+      if (final_id == _id) {
+        cart.productsArray.map((cartProd) => {
+          if (final_id == cartProd._id) {
+            console.log("if");
+            cartProd.cartQuant += 1;
+          }
+        });
+      } else {
+        console.log("else");
+        product.cartQuant = 1;
+        cart.productsArray.push(product);
+        // const data = await updateOne("cart", cart._id, cart);
+      }
       const data = await updateOne("cart", cart._id, cart);
       // product.cartQuant += 1;
       // }
@@ -165,7 +186,7 @@ app.post("/cart-post", async (req, res) => {
     } else {
       product.cartQuant = 1;
       productsArray.push(product);
-      console.log(productsArray);
+      // console.log(productsArray);
       const data = insert("cart", { _profid, productsArray });
     }
     // }
@@ -175,8 +196,9 @@ app.post("/cart-post", async (req, res) => {
       res.status(500).send({ data });
     }
   } catch (err) {
-    res.status(500).send({ err });
-    // res.redirect("/");
+    // res.status(500).send({ err });
+    // getCart();
+    res.redirect("/");
   }
 });
 
@@ -203,8 +225,9 @@ app.post("/cart-del-one", async (req, res) => {
       res.status(500).send({ data });
     }
   } catch (err) {
-    res.status(500).send({ err: JSON.stringify(err) });
-    // res.redirect("/cart");
+    // res.status(500).send({ err: JSON.stringify(err) });
+    // getCart();
+    res.redirect("/cart");
   }
 });
 
@@ -249,15 +272,20 @@ app.post("/cart-product-decrease", async (req, res) => {
       console.log("cart not found");
       // const data = insert("cart", { _profid, productsArray });
     }
+    const data = await updateOne("cart", cart._id, cart);
     // }
     if (data && data.modifiedCount) {
-      res.status(200).send({ data });
+      // res.status(200).send({ data });
+      res.redirect("/cart");
     } else {
-      res.status(500).send({ data });
+      res.redirect("/cart");
+      // res.status(500).send({ data });
     }
   } catch (err) {
     res.status(500).send({ err });
-    // res.redirect("/");
+    // getCart();
+    // res.redirect("/cart");
+    // res.render("cart", { error: JSON.stringify(err) });
   }
 });
 
@@ -302,15 +330,18 @@ app.post("/cart-product-increase", async (req, res) => {
       console.log("cart not found");
       // const data = insert("cart", { _profid, productsArray });
     }
+    const data = await updateOne("cart", cart._id, cart);
     // }
     if (data && data.modifiedCount) {
-      res.status(200).send({ data });
+      res.redirect("/cart");
+      // res.status(200).send({ data });
     } else {
-      res.status(500).send({ data });
+      res.redirect("/cart");
+      // res.status(500).send({ data });
     }
   } catch (err) {
     res.status(500).send({ err });
-    // res.redirect("/");
+    // res.redirect("/cart");
   }
 });
 

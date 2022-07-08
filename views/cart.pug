@@ -6,35 +6,38 @@ html
         include header.pug
         div(class="p-5")
             each product in cart.productsArray
-                form(id="cartForm" action="/cart-del-one" method="POST")
-                    input(type="hidden" name="_prodid" value= product._id)
-                    div(class="max-w-15 rounded overflow-hidden shadow-lg flex grid grid-cols-8 gap-1")
-                        div(class="m-auto col-span-1")
-                            img(class="p-8" src= product.image width="150px" alt="Sunset in the mountains")
-                        div(class="px-10 py-6 col-span-3")
-                            div(class="font-bold text-xl mb-2")= product.title
-                            //- p(class="text-gray-700 text-base mb-2")= product.description
-                            p(class="font-bold")= "$" + product.price
-                        div(class="m-auto col-span-2")
-                            span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= "#" + product.category
-                            span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= product.rating.rate
-                            span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= product.rating.count
-                        //- div(class="m-auto flex text-xl")    
-                            h5(type="button" onclick=`addQuantity(${product.cartQuantity})`)= "+"
-                            input(class="m-auto p-2" id="quantity" value= product.cartQuantity)
-                            h5(type="button" onclick="decQuantity(event)")= '-'
-                        div(class="m-auto col-span-1 flex")
-                            button(class="inline-block bg-red-400 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2" type="submit")= "Delete"
-                form(id="cardDec" action="/cart-product-decrease" method="POST")
-                    input(type="hidden" name="_prodid" value= product._id)
-                    button(class="text-xl") -
-                div()= product.cartQuant
-                form(id="cardDec" action="/cart-product-increase" method="POST")
-                    input(type="hidden" name="_prodid" value= product._id)
-                    button(class="text-xl") +
+                div(class="max-w-15 rounded overflow-hidden shadow-lg flex")
+                    form(id="cartForm" action="/cart-del-one" method="POST")
+                        div(class="flex grid grid-cols-6 gap-1")
+                            input(type="hidden" name="_prodid" value= product._id)
+                            div(class="m-auto col-span-1")
+                                img(class="p-8" src= product.image width="150px" alt="Sunset in the mountains")
+                            div(class="px-10 py-6 col-span-3")
+                                div(class="font-bold text-xl mb-2")= product.title
+                                //- p(class="text-gray-700 text-base mb-2")= product.description
+                                p(class="font-bold")= "₹" + product.price
+                                p(class="pt-3 text-gray-500")= "Quantity: " + product.cartQuant
+                            div(class="m-auto col-span-1")
+                                span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= "#" + product.category
+                                span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= product.rating.rate
+                                //- span(class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2")= product.rating.count
+                            //- div(class="m-auto flex text-xl")    
+                                h5(type="button" onclick=`addQuantity(${product.cartQuantity})`)= "+"
+                                input(class="m-auto p-2" id="quantity" value= product.cartQuantity)
+                                h5(type="button" onclick="decQuantity(event)")= '-'
+                            div(class="m-auto col-span-1 flex")
+                                button(class="inline-block bg-red-400 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 text-white" type="submit")= "Delete"
+                    div(class="m-auto col-span-1 flex")            
+                        form(class="p-3" id="cardDec" action="/cart-product-decrease" method="POST")
+                            input(type="hidden" name="_prodid" value= product._id)
+                            button(class="inline-block bg-gray-200 rounded px-3 text-sm font-semibold text-red-600 mb-2 text-2xl") -
+                        div(class="p-3 mt-1 text-xl")= product.cartQuant
+                        form(class="p-3" id="cardDec" action="/cart-product-increase" method="POST")
+                            input(type="hidden" name="_prodid" value= product._id)
+                            button(class="inline-block bg-gray-200 rounded px-3 text-sm font-semibold text-green-600 mb-2 text-2xl") +
             div(class="flex justify-end")    
                 div(class="p-3 font-bold text-xl")= "Total number of items in Cart: "
                 div(class="pt-3 pr-10 font-bold text-xl underline underline-offset-8")= cartItems
                 div(class="p-3 font-bold text-xl")= "Total cart value: "
-                div(class="pt-3 pr-10 font-bold text-xl underline underline-offset-8")= "$" + finalPrice
+                div(class="pt-3 pr-10 font-bold text-xl underline underline-offset-8")= "₹" + finalPrice
         include footer.pug
