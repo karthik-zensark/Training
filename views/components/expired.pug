@@ -1,0 +1,16 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        .flex.h-screen.justify-center.items-center.bg-gradient-to-r.from-gray-500.to-gray-200
+            .flex.justify-center
+                .flex.flex-col.rounded-lg.bg-white.shadow-lg
+                    h5.w-full.h-96.object-cover.rounded-t-lg.text-center.text-xl.pt-5.h-auto ZenConnect
+                    .p-6.flex.flex-col.justify-start
+                        h2.text-gray-900.text-2xl.font-medium.mb-2 LoggedOut / Session Has been Expired. 
+                        a.py-3.text-end(href="/auth/login")
+                            span.flex.justify-end
+                                    button.py-3.mt-2.text-gray-900.text-md.text-end.inline-block.bg-sky-100.rounded-full.px-3.py-1.text-sm.font-semibold(class="hover:bg-sky-200 hover:drop-shadow-lg") login Again
+                            //- button.py-3.text-gray-900.text-md.text-end Login Again ->

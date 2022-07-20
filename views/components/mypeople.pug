@@ -1,0 +1,16 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        include navbar.pug
+        .p-5
+            .flex
+                .text-xl My People
+                a.px-3(href="/people")
+                    .text-xl People
+            .text-xl Following
+            if(user)
+                
+

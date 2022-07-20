@@ -1,0 +1,73 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        include navbar.pug 
+        .p-5 
+            details(class="border-2 border-solid border-transparent open:bg-white open:ring-1 dark:open:ring-white/10 open:shadow-lg open:border-2 open:border-solid open:border-gray-500 open:mb-10 pt-3 pb-7 px-6 open:p-3 open:px-6 rounded-lg")
+                summary.inline-block.bg-green-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700.text-xl.outline(class="hover:bg-green-200 hover:drop-shadow-lg") New Post
+                form(action="/send-post" method="POST")
+                    .pt-3
+                        input.border-solid.border-2.border-gray-500.rounded.pl-2.w-min.h-10(type="text" name="postTitle" id="postTitle" placeholder="Title of the post")
+                        .flex.justify-between.pt-5
+                            input.border-solid.border-2.border-gray-500.rounded.pl-2.w-full.h-10(type="text" name="postMsg" id="postMsg" placeholder="Post something..")
+                            .w-96
+                            button.inline-block.bg-green-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit') Post
+                //- summary(class="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none") Why do they call it Ovaltine?
+                //- div(class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400")
+                    p The mug is round. The jar is round. They should call it Roundtine.
+            //- button.inline-block.bg-green-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit' onclick="openPostSending(event)") New Post
+            //- if (postSendingDisplay == true)
+            //-     form(action="/send-post" method="POST")
+            //-         input.border-solid.border-2.border-gray-500.rounded.pl-2.w-min.h-10(type="text" name="postTitle" id="postTitle" placeholder="Title of the post")
+            //-         .flex.justify-between.pt-5
+            //-             input.border-solid.border-2.border-gray-500.rounded.pl-2.w-full.h-10(type="text" name="postMsg" id="postMsg" placeholder="Post something..")
+            //-             .w-96
+            //-             button.inline-block.bg-green-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit') Post
+            //- .pt-5.border-solid.border-sky-500.border-b-2
+            .p-5.border-solid.border-gray-500.border-2.rounded-xl
+                .pb-7
+                    .text-2xl.p-5.bg-gray-400.font-semibold.rounded-xl.text-white.outline Posts
+                if (posts)
+                    each post in posts
+                        .p-5.mb-5.border-solid.border-t-2.border-gray-500
+                            .flex.justify-between
+                                span.text-xl.break-words.bg-blue-500.rounded-full.px-3.py-1.text-white.w-auto.font-semibold= post.title
+                                span.font-bold(class="hover:animate-pulse")= "@" + post.postedBy
+                            .ml-2.mt-2.text-2xl.break-words= post.description
+                            .flex.mt-3
+                                form(action="/post-like" method="POST")
+                                    input(type="hidden" name="postId" id="postId" value= post._id)
+                                    if (post.likes.length > 0)
+                                        if (post.likes.length == 1)
+                                            button.inline-block.bg-gray-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit')= post.likes.length + " " + "Like"
+                                        if (post.likes.length > 1)
+                                            button.inline-block.bg-gray-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit')= post.likes.length + " " + "Likes"
+                                    else
+                                        button.inline-block.bg-gray-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit')= "Like Now"
+                                form(action="/post-set-comment" method="POST")
+                                    input(type="hidden" name="commentSetId" id="commentSetId" value= post._id)
+                                    button.mx-3.inline-block.bg-gray-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit') Comments
+                                form(action="/post-share" method="POST")
+                                    input(type="hidden" name="commentSetId" id="commentSetId" value= post._id)
+                                    button.mx-1.inline-block.bg-gray-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit') Share
+                            if (post.showComments)
+                                .mt-3
+                                    form(action="/post-comment" method="POST")
+                                        input(type="hidden" name="commentPostId" id="commentPostId" value= post._id)
+                                        input.border-solid.border-2.border-gray-500.rounded-full.pl-2(type="text" name="commentPost" id="commentPost")
+                                        button.mx-3.inline-block.bg-gray-200.rounded-full.px-3.py-1.text-sm.font-semibold.text-gray-700(type='submit') Send
+                                    .mt-3
+                                    .text-xl Comments
+                                    if (post.comments.length > 0)
+                                        each comment in  post.comments
+                                            .p-3.my-3
+                                                .text-sm= comment.commentedBy
+                                                .text-md= comment.comment
+                                    else 
+                                        .p-3
+                                            .text-md No Comments for this post
+                else 
+                    .text-xl There are no posts as of now

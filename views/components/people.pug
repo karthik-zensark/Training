@@ -1,0 +1,23 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        include navbar.pug
+        .p-5
+            .text-2xl People
+            each usero in users
+                .p-5.ml-3
+                    if (usero.username == user.username)
+                        span.p-2.text-xl(class="hover:underline underline-offset-4") You
+                    else
+                        span.p-2.text-xl(class="hover:underline underline-offset-4")= usero.username
+                    div.flex
+                        form(action="/chat" method="post")
+                            input(type="hidden" id="uid" name="uid", value= usero._id)
+                            button.mx-2 Chat
+                        //- if (usero.username != user.username)
+                        //-     form(action="/follow" method="post")
+                        //-         input(type="hidden" id="followId" name="followId", value= usero._id)
+                        //-         button.mx-3 Follow

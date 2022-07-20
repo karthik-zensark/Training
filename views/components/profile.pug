@@ -1,0 +1,13 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        include navbar.pug 
+        .p-5 
+            .text-2xl Profile
+            if (user)
+                .pt-3
+                    .p-3.border-solid.border-2.border-gray-500.rounded.w-96
+                        .text-xl= "Username" + ":" + " " + user.username

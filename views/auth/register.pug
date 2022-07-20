@@ -1,0 +1,20 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        .flex.h-screen.justify-center.items-center.bg-gradient-to-r.from-gray-500.to-gray-200
+            .flex.justify-center
+                .flex.flex-col.rounded-lg.bg-white.shadow-lg
+                    h5.w-full.h-96.object-cover.rounded-t-lg.text-center.text-xl.pt-5.h-auto ZenConnect
+                    .p-6.flex.flex-col.justify-start
+                        h2.text-gray-900.text-2xl.font-medium.mb-2 Register
+                        form.contents(action="/auth/register" method="post")
+                            h6.text-gray-500.mb-2 username
+                            input.text-gray-700.text-base.mb-4.pl-2.border-2.border-slate-400.rounded(type="text" id="username" name="username" placeholder="Enter new username")
+                            h6.text-gray-500.mb-2 password
+                            input.text-gray-700.text-base.mb-4.pl-2.border-2.border-slate-400.rounded(type="password" id="password" name="password" placeholder="Enter your password")
+                            button.py-3.text-gray-900.text-md.text-end Register Now -> 
+                            a.py-3.text-end(href="/auth/login")
+                                button.text-gray-900.text-md.text-end(type="button") Login Now -> 

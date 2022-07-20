@@ -1,0 +1,19 @@
+meta(charset="UTF-8")
+meta(http-equiv="X-UA-Compatible" content="IE=edge")
+meta(name="viewport" content="width=device-width, initial-scale=1.0")
+title ZenConnect 
+link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+link(rel="stylesheet" href="css/styles.css")
+script(src="js/main.js")
+script(src="js/socket.io.js")
+script.
+    var socket = io();
+    socket.on('message', () => {
+        console.log(` href is: ${window.location.href}`);
+        var currentPathname = window.location.pathname;
+        console.log("reloaded")
+        currentPathname == "/get-chat" ? window.location.href = "http://localhost:1234/get-chat" : console.log("not-reloading #not on chat page");
+        console.log(` href after is: ${window.location.href}`);
+        console.log(` pathname after is: ${window.location.pathname}`);
+    })
+script(src="https://cdn.tailwindcss.com")

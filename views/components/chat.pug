@@ -1,0 +1,40 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        include navbar.pug
+        .p-5
+            .text-2xl chat
+            .flex
+                .py-3.text-xl= "Chatting with: " + " " + reciever.username
+            .p-5.border-solid.border-2.border-gray-500.rounded
+                if(chatters)
+                    each chatter in chatters.messages
+                        if (chatter.sender == reciever.username)
+                            .py-3.mb-3.w-96
+                                .ml-7.mr-3.break-words
+                                    span.text.xs.text-sky-500.border-solid.border-b-2.border-sky-500= chatter.sender
+                                    .mt-2.text-xl= chatter.message
+                        else
+                            .flex
+                                .flex-1
+                                .py-3.mb-3.w-96
+                                    .mr-7.ml-3.break-words.text-right
+                                        span.rtl.text.xs.border-solid.border-b-2.border-black= chatter.sender
+                                        .mt-2.text-xl= chatter.message
+                    form(action="/chat/post" method="post")
+                        .flex.justify-between.pt-5
+                            input(type="hidden" name="chatId" id="chatId" value= chatters._id)
+                            .flex-1
+                            input.border-solid.border-2.border-gray-500.rounded-full.pl-2.w-96.h-10.break-words(type="text" name="chatMsg" id="chatMsg" placeholder="Type to chat")
+                            button.mx-3(type='submit') Send
+                    //- button(type='submit' onclick="clickConsole(event)") Send
+                else 
+                    each chatter1 in chatters1.messages
+                        .text-xl= chatter1.message
+                    form(action="/chat/post" method="post")
+                        input(type="hidden" name="chatId" id="chatId" value= chatters1._id)
+                        input(type="text" name="chatMsg" id="chatMsg" placeholder="Type to chat")
+                    button(type='submit' onclick="clickConsole(event)") Send

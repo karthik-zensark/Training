@@ -1,0 +1,23 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        #navbar(style="transition: top 0.5s;").sticky.top-0.flex.bg-gray-500.justify-between
+            div
+                a(href="/dashboard")
+                    button.mx-3.px-5.py-2.text-2xl.inline-block.bg-white.rounded-full.font-semibold ZenConnect
+                a(href="/dashboard")
+                    button.p-5.mt-1.text-xl.text-white.font-semibold(class="hover:underline hover:underline-offset-4 hover:animate-pulse") Feed
+                a(href="/people")
+                    button.p-5.mt-1.text-xl.text-white.font-semibold(class="hover:underline hover:underline-offset-4 hover:animate-pulse") My People
+            div.flex 
+                a(href="/profile")
+                    .p-5.mt-1.text-xl.text-white.font-semibold= "Hi " + user.username
+                a(href="/requests")
+                    .p-5.mt-1.text-xl.text-white.font-semibold Requests
+                form(action="/auth/logout" method="post")
+                    input.hidden(id="userID" name="userID" value= user._id)
+                    button.p-5.mt-1.text-xl.text-white.font-semibold Logout
+

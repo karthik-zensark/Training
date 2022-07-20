@@ -1,0 +1,23 @@
+doctype
+html(lang='en')
+    head
+        meta(charset='utf-8')
+        include ../head.pug
+    body
+        include navbar.pug
+        .p-5
+            .text-xl Requests
+            if (user)
+                each request in user.requestsRecieved 
+                    .p-3.text-xl= request.recievedFrom + " " + "has requested to follow you."
+                    .flex
+                        form(action="/accept-request" method="POST")
+                            input(type="hidden" id="requestUserId" name="requestUserId" value= request.recievedId)
+                            input(type="hidden" id="requestId" name="requestId" value= request._id)
+                            input(type="hidden" id="requestName" name="requestName" value= request.recievedFrom)
+                            button.text-lg.p-2 Accept 
+                        form(action="/decline-request" method="POST")
+                            input(type="hidden" id="requestUserId" name="requestUserId" value= request.recievedId)
+                            input(type="hidden" id="requestId" name="requestId" value= request._id)
+                            input(type="hidden" id="requestName" name="requestName" value= request.recievedFrom)
+                            button.text-lg.p-2 Decline
